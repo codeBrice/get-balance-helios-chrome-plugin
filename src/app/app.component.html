@@ -1,0 +1,40 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <form [formGroup]="addressform">
+  <div class="row">
+    <div class="col-sm">
+      <div class="form-group">
+        <label>Address:</label>
+        <textarea formControlName="address" (keyup)="changeTextArea()" class="form-control" id="validationTextarea" placeholder="Insert the wallet array. Example ['0x123123...','0x123123123'], use double quote for every wallet." required>
+        </textarea>
+      </div>
+      <button class="btn btn-primary" (click)="searchBalance()">Submit</button>
+    </div>
+    <div class="col-sm" style="text-align: center;" *ngIf="spinner">
+      <img src="../assets/images/loading.gif" width="50" height="50">
+    </div>
+    <div class="col-sm" *ngIf="result">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Address</th>
+            <th scope="col">Last block receive</th>
+            <th scope="col">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let address of address">
+            <td>{{address.address}}</td>
+            <td>{{address.date}}</td>
+            <td>{{address.balance | number:'1.0-2'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</form>
+<div class="alert alert-danger" role="alert" *ngIf="error">
+  {{errorMsg}}
+</div>
+</div>
+<router-outlet></router-outlet>
